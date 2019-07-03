@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.mybatis.mapper.MenuMapper" >
-  <resultMap id="BaseResultMap" type="com.example.mybatis.entity.Menu" >
+  <resultMap id="BaseResultMap" type="com.example.mybatis.service.modal.MenuModal" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
     <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
     <result column="link" property="link" jdbcType="VARCHAR" />
     <result column="pid" property="pid" jdbcType="INTEGER" />
+    <collection property="children" column="id" select="selectTree"/>
   </resultMap>
   <sql id="Base_Column_List" >
     id, menu_name, menu_icon, link, pid
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from menu
+  </select>
+  <select id="selectTree" resultMap="BaseResultMap">
+        SELECT * FROM menu WHERE pid = #{id}
+    </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

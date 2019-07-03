@@ -1,6 +1,10 @@
 package com.example.mybatis.entity;
 
+import java.beans.Transient;
+import java.util.List;
+
 public class Menu {
+
     private Integer id;
 
     private String menuName;
@@ -10,6 +14,8 @@ public class Menu {
     private String link;
 
     private Integer pid;
+
+    private List<Menu> children;
 
     public Integer getId() {
         return id;
