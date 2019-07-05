@@ -18,11 +18,19 @@ public enum ResultEnum {
     //-30000 订单错误
     ORDER_NO_EXIT(-30000,"订单不存在"),
 
+    ORDER_NOT_CANCEL(-30001,"当前订单无法取消"),
+
+    ORDER_CANCEL_ERR(-30002,"取消订单失败"),
+
+    ORDER_NOT_FINISH(-30003,"当前订单无法完结"),
+
+    ORDER_HAS_FINISH(-30004,"当前订单已经完结"),
+
     //参数校验不通过 -200000
     FORM_ERR(-200000,"参数不正确"),
 
     //未知错误 -100000
-    sell_err(-100000,"系统错误"),
+    SELL_ERR(-100000,"系统错误"),
     ;
     private int code;
 

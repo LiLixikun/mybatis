@@ -16,6 +16,6 @@ public class ExceptionHandle {
             SellException myException = (SellException) e;
             return ResultUtil.err(myException.getCode(), myException.getMessage());
         }
-        return ResultUtil.err(ResultEnum.sell_err.getCode(),ResultEnum.sell_err.getMsg());
+        return ResultUtil.err(ResultEnum.SELL_ERR.getCode(),ResultEnum.SELL_ERR.getMsg());
     }
 }

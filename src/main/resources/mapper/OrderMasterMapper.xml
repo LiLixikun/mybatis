@@ -24,6 +24,17 @@
     from order_master
     where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from order_master
+  </select>
+  <select id="findOrderByUser" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from order_master
+    where buyer_openid = #{buyerOpenid,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from order_master
     where order_id = #{orderId,jdbcType=VARCHAR}

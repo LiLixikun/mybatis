@@ -8,11 +8,10 @@ import com.example.mybatis.exceptionHandle.SellException;
 import com.example.mybatis.form.OrderForm;
 import com.example.mybatis.service.OrderService;
 import com.example.mybatis.utils.ResultUtil;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,6 +29,27 @@ public class OrderController {
         }
         OrderDTO orderDTO= CoverOrderFormToOrderDTO.cover(orderForm);
         orderService.creatOrder(orderDTO);
+        return ResultUtil.success();
+    }
+
+    @GetMapping("/findUserOrders")
+    public ResultVO findUserOrders(@RequestParam(value = "buyerOpenid",required = false,defaultValue = "ew3euwhd7sjw9diwkq") String buyerOpenid,
+                                   @RequestParam("pageNum") int pageNum,
+                                   @RequestParam("pageSize") int pageSize){
+
+        PageInfo pageInfo=orderService.findOrderByUser(buyerOpenid,pageNum,pageSize);
+        return ResultUtil.success(pageInfo);
+    }
+
+    @GetMapping("/findOrderById/{orderId}")
+    public ResultVO findOrderById(@PathVariable("orderId") String orderId){
+        OrderDTO orderDTO=orderService.findOrderById(orderId);
+        return ResultUtil.success(orderDTO);
+    }
+
+    @GetMapping("cancelOrder/{orderId}")
+    public ResultVO cancelOrder(@PathVariable("orderId") String orderId){
+        orderService.cancelOrder(orderId);
         return ResultUtil.success();
     }
 }

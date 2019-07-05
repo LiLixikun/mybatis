@@ -68,7 +68,14 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public void
     increaseStock(List<CartDTO> cartDTOList) {
-
+        for (CartDTO cartDTO:cartDTOList){
+            Product product=productMapper.selectByPrimaryKey(cartDTO.getProductId());
+            if (product==null){
+                throw new SellException(ResultEnum.PRODUCT_NO_EXIS);
+            }
+            product.setProductStock(product.getProductStock()+cartDTO.getProductStock());
+            productMapper.updateByPrimaryKeySelective(product);
+        }
     }
 
     @Override
@@ -80,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
                 throw new SellException(ResultEnum.PRODUCT_NO_EXIS);
             }
             Integer productStock=product.getProductStock()-cartDTO.getProductStock();
-            //潘哥库存是否足够
+            //判断库存是否足够
             if(productStock<0){
                 throw new SellException(ResultEnum.PRODUCT_STOCK_ERR);
             }
