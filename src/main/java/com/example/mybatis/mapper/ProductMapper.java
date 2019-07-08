@@ -13,6 +13,8 @@ public interface ProductMapper {
 
     List<Product> findALL();
 
+    List<Product> findUpList();
+
     Product selectByPrimaryKey(String productId);
 
     int updateByPrimaryKeySelective(Product record);

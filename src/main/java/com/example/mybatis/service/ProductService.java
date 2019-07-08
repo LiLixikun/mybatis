@@ -2,6 +2,7 @@ package com.example.mybatis.service;
 
 import com.example.mybatis.DTO.CartDTO;
 import com.example.mybatis.entity.Product;
+import com.example.mybatis.service.modal.CategoryModel;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -17,10 +18,16 @@ public interface ProductService {
     PageInfo<Product> findList(int pageNum, int pageSize);
 
     /**
+     * 查询上架产品
+     * @return
+     */
+    List<Product> findUpList();
+
+    /**
      * 返回前端APP联动数据
      * @return
      */
-    List<Product> getTreeProdct();
+    List<CategoryModel> getTreeProdct();
 
     /**
      * 查询详情

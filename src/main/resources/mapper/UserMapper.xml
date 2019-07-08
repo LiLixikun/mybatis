@@ -3,8 +3,8 @@
 <mapper namespace="com.example.mybatis.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.example.mybatis.entity.UserInfo">
-        <result column="open_id" jdbcType="INTEGER" property="openId" />
-        <result column="nickName" jdbcType="VARCHAR" property="nickName" />
+        <result column="open_id" jdbcType="VARCHAR" property="openId" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
         <result column="sex" jdbcType="VARCHAR" property="sex" />
         <result column="country" jdbcType="VARCHAR" property="country" />
         <result column="province" jdbcType="VARCHAR" property="province" />
@@ -12,12 +12,12 @@
         <result column="phone" jdbcType="VARCHAR" property="phone" />
     </resultMap>
 
-    <select id="getUsers" resultType="com.example.mybatis.entity.UserInfo">
+    <select id="getUsers" resultMap="BaseResultMap">
         select * from user_info;
     </select>
 
-    <select id="getUserById" resultType="com.example.mybatis.entity.UserInfo">
-        select * from user_info where open_id=#{open_id};
+    <select id="getUserById" resultMap="BaseResultMap">
+        select * from user_info where open_id=#{openId};
     </select>
 
 </mapper>

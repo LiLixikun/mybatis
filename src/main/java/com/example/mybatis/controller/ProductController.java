@@ -21,10 +21,20 @@ public class ProductController {
         return ResultUtil.success(productService.findList(pageNum,pageSize));
     }
 
+    @GetMapping("/product/block")
+    public ResultVO getUpProduct(){
+        return ResultUtil.success(productService.getTreeProdct());
+    }
+
     @PostMapping("/product")
     public ResultVO add(@RequestBody Product product){
         productService.addProduct(product);
         return ResultUtil.success();
+    }
+
+    @GetMapping("/product/getTreeProdct")
+    public ResultVO getTreeProdct(){
+        return ResultUtil.success(productService.getTreeProdct());
     }
 
     @GetMapping("/product/{productId}")
