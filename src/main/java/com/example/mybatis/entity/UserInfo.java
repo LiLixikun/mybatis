@@ -1,42 +1,73 @@
 package com.example.mybatis.entity;
 
-import lombok.Data;
-
-@Data
 public class UserInfo {
-
-    /**
-     * 微信唯一id
-     */
     private String openId;
 
-    /**
-     * 微信昵称
-     */
     private String nickname;
 
-    /**
-     * 性别
-     */
     private String sex;
 
-    /**
-     * 国家
-     */
-    private String country;
-
-    /**
-     * 省份
-     */
     private String province;
 
-    /**
-     * 头像
-     */
+    private String country;
+
     private String headImgUrl;
 
-    /**
-     * 微信手机号
-     */
     private String phone;
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId == null ? null : openId.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country == null ? null : country.trim();
+    }
+
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl == null ? null : headImgUrl.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
 }

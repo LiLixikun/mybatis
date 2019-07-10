@@ -30,14 +30,14 @@
     from product_info
     where product_id = #{productId,jdbcType=VARCHAR}
   </select>
-  <select id="findALL" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="findALL" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from product_info
   </select>
-  <select id="findUpList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="findUpList" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
     ,

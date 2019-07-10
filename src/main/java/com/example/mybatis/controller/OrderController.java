@@ -22,7 +22,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/creat")
+    @PostMapping("/create")
     public ResultVO creatOrder(@Valid OrderForm orderForm, BindingResult bindingResult) throws SellException{
         if(bindingResult.hasErrors()){
             throw new SellException(ResultEnum.FORM_ERR.getCode(),bindingResult.getFieldError().getDefaultMessage());
@@ -32,23 +32,36 @@ public class OrderController {
         return ResultUtil.success();
     }
 
+    @GetMapping("/orderList")
+    public ResultVO orderList( @RequestParam(value = "pageNum",required = false,defaultValue = "1") int pageNum,
+                               @RequestParam(value = "pageSize",required = false,defaultValue = "10") int pageSize){
+        PageInfo pageInfo=orderService.findAllOrder(pageNum,pageSize);
+        return ResultUtil.success(pageInfo);
+    }
+
+    @GetMapping("/finishOrder")
+    public ResultVO finishOrder(@RequestParam("orderId") String orderId){
+        orderService.finishOrder(orderId);
+        return ResultUtil.success();
+    }
+
     @GetMapping("/findUserOrders")
-    public ResultVO findUserOrders(@RequestParam(value = "buyerOpenid",required = false,defaultValue = "ew3euwhd7sjw9diwkq") String buyerOpenid,
-                                   @RequestParam("pageNum") int pageNum,
-                                   @RequestParam("pageSize") int pageSize){
+    public ResultVO findUserOrders(@RequestParam(value = "openid") String buyerOpenid,
+                                   @RequestParam(value = "pageNum",required = false,defaultValue = "1") int pageNum,
+                                   @RequestParam(value = "pageSize",required = false,defaultValue = "10") int pageSize){
 
         PageInfo pageInfo=orderService.findOrderByUser(buyerOpenid,pageNum,pageSize);
         return ResultUtil.success(pageInfo);
     }
 
-    @GetMapping("/findOrderById/{orderId}")
-    public ResultVO findOrderById(@PathVariable("orderId") String orderId){
+    @GetMapping("/detail")
+    public ResultVO findOrderById(@RequestParam("orderId") String orderId){
         OrderDTO orderDTO=orderService.findOrderById(orderId);
         return ResultUtil.success(orderDTO);
     }
 
-    @GetMapping("cancelOrder/{orderId}")
-    public ResultVO cancelOrder(@PathVariable("orderId") String orderId){
+    @PostMapping("/cancel")
+    public ResultVO cancelOrder(@RequestParam("orderId") String orderId){
         orderService.cancelOrder(orderId);
         return ResultUtil.success();
     }

@@ -25,7 +25,7 @@ public interface UserService {
      * @param userInfo
      * @return
      */
-    UserInfo addUser(UserInfo userInfo);
+    void addUser(UserInfo userInfo);
 
     /**
      * 修改用户信息
@@ -34,7 +34,7 @@ public interface UserService {
      * @param userInfo
      * @return
      */
-    UserInfo updateUserById(String openId, UserInfo userInfo);
+    void updateUserById(String openId, UserInfo userInfo);
 
     /**
      * 删除

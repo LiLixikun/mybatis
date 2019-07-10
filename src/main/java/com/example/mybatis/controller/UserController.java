@@ -7,8 +7,6 @@ import com.example.mybatis.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class UserController {
 
@@ -27,12 +25,14 @@ public class UserController {
 
     @PostMapping("/users")
     public ResultVO addUser(UserInfo userInfo) {
-        return ResultUtil.success(userService.addUser(userInfo));
+        userService.addUser(userInfo);
+        return ResultUtil.success();
     }
 
     @PutMapping("/users/{openId}")
     public ResultVO updateUser(@PathVariable("openId") String openId, UserInfo userInfo) {
-        return ResultUtil.success(userService.updateUserById(openId, userInfo));
+        userService.updateUserById(openId, userInfo);
+        return ResultUtil.success();
     }
 
     @DeleteMapping("/users/{openId}")

@@ -12,34 +12,34 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     @Autowired
-    private CategoryService service;
+    private CategoryService categoryService;
 
     @GetMapping("/category")
     public ResultVO getList(){
-        return ResultUtil.success(service.getCategorys());
+        return ResultUtil.success(categoryService.getCategorys());
     }
 
     @GetMapping("/category/{categoryId}")
     public ResultVO getCategory(@PathVariable("categoryId") Integer categoryId){
-        service.getCategoryById(categoryId);
+        categoryService.getCategoryById(categoryId);
         return ResultUtil.success();
     }
 
     @PostMapping("category")
     public ResultVO addCategory(@RequestBody Category category){
-        service.addCategory(category);
+        categoryService.addCategory(category);
         return ResultUtil.success();
     }
 
     @PutMapping("category")
     public ResultVO updateCategory(@RequestBody Category category){
-        service.updataCategory(category);
+        categoryService.updataCategory(category);
         return ResultUtil.success();
     }
 
     @DeleteMapping("/category/{categoryId}")
     public ResultVO DeleteCategory(@PathVariable("categoryId") Integer categoryId){
-        service.deleteCategory(categoryId);
+        categoryService.deleteCategory(categoryId);
         return ResultUtil.success();
     }
 }

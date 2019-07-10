@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getCategorys() {
-        List<Category> categoryList=mapper.selectAll();
+        List<Category> categoryList = mapper.selectAll();
         return categoryList;
     }
 

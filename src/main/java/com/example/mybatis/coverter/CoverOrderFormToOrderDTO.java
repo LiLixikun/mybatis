@@ -1,6 +1,5 @@
 package com.example.mybatis.coverter;
 
-import com.example.mybatis.DTO.CartDTO;
 import com.example.mybatis.DTO.OrderDTO;
 import com.example.mybatis.entity.OrderDetail;
 import com.example.mybatis.enums.ResultEnum;
@@ -8,7 +7,6 @@ import com.example.mybatis.exceptionHandle.SellException;
 import com.example.mybatis.form.OrderForm;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sun.xml.internal.ws.api.model.ExceptionType;
 
 import java.util.ArrayList;
 import java.util.List;
