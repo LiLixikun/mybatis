@@ -1,5 +1,6 @@
 package com.example.mybatis.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.example.mybatis.DTO.CartDTO;
 import com.example.mybatis.DTO.OrderDTO;
 import com.example.mybatis.entity.OrderDetail;
@@ -14,6 +15,8 @@ import com.example.mybatis.mapper.OrderDetailMapper;
 import com.example.mybatis.mapper.OrderMasterMapper;
 import com.example.mybatis.service.OrderService;
 import com.example.mybatis.service.ProductService;
+import com.example.mybatis.service.PushMessageService;
+import com.example.mybatis.service.WebSocket;
 import com.example.mybatis.utils.KeyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +37,20 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
+    @Resource
     private OrderMasterMapper orderMasterMapper;
 
-    @Autowired
+    @Resource
     private OrderDetailMapper orderDetailMapper;
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private PushMessageService pushMessageService;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @Override
     @Transactional
@@ -51,6 +61,10 @@ public class OrderServiceImpl implements OrderService {
         BigDecimal amount = new BigDecimal(0);
         //生成订单id
         String orderId = KeyUtil.getOrderId();
+
+        if(orderDTO.getOrderDetailList().size()==0){
+            throw new SellException(ResultEnum.CART_NOT_NULL);
+        }
 
         //判断购物车 商品是否有效
         for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
@@ -92,6 +106,10 @@ public class OrderServiceImpl implements OrderService {
 
         orderMasterMapper.insertSelective(orderMaster);
 
+        //進行消息推送
+        pushMessageService.orderStatus(orderMaster);
+        //推荐推送给客户端有新的消息
+        webSocket.sendMessage(JSON.toJSONString(orderMaster));
         //减去对应产品库存
         productService.decreaseStock(cartDTOList);
 

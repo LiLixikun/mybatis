@@ -1,10 +1,14 @@
 package com.example.mybatis.entity;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Product {
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = -2830647534012471182L;
+
     private String productId;
 
     private String productName;

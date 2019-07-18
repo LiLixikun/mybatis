@@ -2,8 +2,12 @@ package com.example.mybatis.VO;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class ResultVO <T>{
+public class ResultVO <T> implements Serializable {
+
+    private static final long serialVersionUID = 4369589217416363090L;
     /**
      * 返回状态码
      */

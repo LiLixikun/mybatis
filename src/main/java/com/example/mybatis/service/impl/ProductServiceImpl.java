@@ -15,9 +15,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +29,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
+    @Resource
     private ProductMapper productMapper;
 
     @Autowired
@@ -45,6 +49,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(cacheNames = "product",key = "123") //添加缓存
     public List<CategoryModel> getTreeProdct() {
         //查询所有产品分类
         List<Category> categoryList = categoryService.getCategorys();
@@ -70,6 +75,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
+    @Cacheable(cacheNames = "ProductInfo",key = "#id")
     public Product findById(String id) {
         Product product = productMapper.selectByPrimaryKey(id);
         if (product == null) {
@@ -79,6 +85,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "product",key = "123") //删除缓存
     public void addProduct(Product product) {
         product.setProductId(KeyUtil.getProductId());
         productMapper.insertSelective(product);
@@ -86,6 +93,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "product",key = "123") //删除缓存
+    @CachePut(cacheNames = "ProductInfo",key = "#product.getProductId()")
     public void updateProduct(Product product, String productId) throws SellException {
         findById(productId);
         productMapper.updateByPrimaryKeySelective(product);
