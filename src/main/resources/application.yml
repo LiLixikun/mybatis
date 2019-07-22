@@ -16,6 +16,14 @@ spring:
     host: 127.0.0.1
     port: 6379
     password: 123456
+  mail:
+    host: 460373604@qq.com //服务器邮箱地址
+    username: xikun
+    password: 123456
+    default-encoding: utf-8
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5 //解决服务端渲染vue
 logging:
   level:
     com.example.mybatis.mapper: trace
@@ -33,3 +41,4 @@ wechat:
   baseHttp: http://47.98.161.153
   templateId:
     orderStatus: tJgwhhVYNoFEk3EDcRO2vJG-5DZVi4Xnk4CGTZhB8Pw
+
