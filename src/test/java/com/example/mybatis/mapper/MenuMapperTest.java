@@ -1,6 +1,7 @@
 package com.example.mybatis.mapper;
 
 import com.example.mybatis.entity.Menu;
+import com.example.mybatis.my.Dog;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +30,10 @@ public class MenuMapperTest {
 
     @Test
     public void selectTree() {
+//        Dog dog = new Dog();
+//        dog.name="小狗";
+//        dog.age=10;
+//        dog.eat();
     }
 
     @Test
